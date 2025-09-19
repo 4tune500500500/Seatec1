@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seatec Services Inc.</title>
+
+<link rel="icon" type="image/png" href="rov.png" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+<style>
+:root{
+  --accent-yellow:#ffff00;
+}
+html,body{
+  height:100%;
+  scroll-behavior:smooth;
+}
+body{
+  color:#fff;
+  font-family:'Rajdhani',sans-serif;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,h5,h6,.font-heading{
+  font-family:'Orbitron',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-weight:600;
+}
+
+/* Background gradient */
+.scrolling-bg {
+  position: fixed; 
+  inset: 0; 
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    #036 0%,
+    #024 25%,
+    #012 50%,
+    #000814 75%,
+    #000000 100%
+  );
+  background-size: 100% 300%;
+}
+
+/* Bubble animation */
+@keyframes bubbleRise{
+  0%{ transform:translateY(10vh) scale(0.8); opacity:0 }
+  10%{ opacity:.6 }
+  100%{ transform:translateY(-120vh) scale(1.2); opacity:0 }
+}
+.bubble{
+  position:absolute; bottom:-10vh; width:10px; height:10px;
+  border-radius:9999px; background:rgba(255,255,255,.7);
+  box-shadow:0 0 10px rgba(255,255,255,.5);
+  animation:bubbleRise var(--dur,12s) linear infinite;
+  filter:blur(0.2px);
+}
+
+/* Buttons */
+.nav-button{
+  border:1px solid var(--accent-yellow);
+  padding:.5rem 1rem; border-radius:.5rem;
+  color:var(--accent-yellow); 
+  transition:all .25s ease;
+  box-shadow: 0 0 4px rgba(255,255,0,.3);
+}
+.nav-button:hover {
+  background: var(--accent-yellow);
+  color: #021527;
+  box-shadow: 0 0 8px var(--accent-yellow),
+              0 0 16px var(--accent-yellow),
+              0 0 24px var(--accent-yellow);
+  transform: translateY(-2px);
+}
+
+/* Hero button glow */
+.hero-button {
+  background: var(--accent-yellow);
+  color: #021527;
+  font-weight: 600;
+  border-radius: .5rem;
+  padding: .75rem 1.5rem;
+  display: inline-block;
+  transition: all .25s ease;
+  box-shadow: 0 0 4px rgba(255,255,0,.3);
+}
+.hero-button:hover {
+  background: #e6e600;
+  box-shadow: 0 0 8px var(--accent-yellow),
+              0 0 16px var(--accent-yellow),
+              0 0 24px var(--accent-yellow);
+  transform: translateY(-2px);
+}
+
+/* Project cards */
+.project-card{ background:transparent; border-radius:1rem; padding:1.5rem; box-shadow:0 8px 15px rgba(0,0,0,.4); transition:transform .25s ease; }
+.project-card:hover{ transform:translateY(-4px) }
+.project-cat{ font-size:.8rem; font-weight:700; color:var(--accent-yellow); letter-spacing:.1em }
+.project-title{ font-size:1.2rem; font-weight:700; margin-top:.5rem }
+.project-text{ color:#a5c3d1; font-size:.95rem; margin-top:.25rem }
+
+/* Auto-fill Gallery Grid */
+#gallery-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:2rem;
+  width:100%;
+  max-width:90rem;
+  margin:0 auto;
+  justify-items:center;
+}
+#gallery-grid img,
+#gallery-grid video {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:0;
+}
+
+/* Auto-fill Partners Grid */
+#partners-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:1rem;
+  width:100%;
+  max-width:90rem;
+  margin:0 auto;
+}
+#partners-grid a {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:56px;
+  border:1px solid var(--accent-yellow);
+  padding:.5rem 1rem;
+  border-radius:.5rem;
+  color:var(--accent-yellow);
+  transition:all .25s ease;
+  box-shadow:0 0 4px rgba(255,255,0,.3);
+}
+#partners-grid a:hover {
+  background: var(--accent-yellow);
+  color: #021527;
+  box-shadow:0 0 8px var(--accent-yellow),
+             0 0 16px var(--accent-yellow),
+             0 0 24px var(--accent-yellow);
+  transform:translateY(-2px);
+}
+
+/* Contact card */
+#contact .contact-card {
+  text-align:center;
+}
+
+/* Fixed Nav offset hero */
+.hero-offset {padding-top:9rem;} /* adjust if nav height changes */
+
+/* Hero text sizes */
+.hero-title{ font-size:clamp(2rem,5vw,4rem); font-weight:700 }
+.hero-sub{ color:#9ac0d8; font-size:1.2rem; max-width:760px; margin:1rem auto }
+
+/* Nav backdrop */
+.navwrap{ background:rgba(7, 46, 89, 0.45); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 2px 8px rgba(0,0,0,.4);}
+nav img { height: 6rem; width:auto; }
+
+nav, footer { color:#fff; }
+section { color:#fff; }
+
+/* Lightbox animations */
+#lightbox.show #lightbox-content {
+  opacity: 1;
+  transform: scale(1);
+}
+#lightbox-content {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.3s ease-out;
+}
+</style>
+</head>
+<body>
+<div class="scrolling-bg"></div>
+<div class="bg-bubbles"><div id="bubbles"></div></div>
+
+<!-- FIXED NAVBAR -->
+<nav class="fixed top-0 left-0 w-full z-50 navwrap flex items-center justify-between px-6 py-4">
+  <div class="flex items-center space-x-3">
+    <img src="rov.png" alt="Seatec ROV Logo" class="h-24 w-auto">
+    <span class="text-[#ffff00] font-heading text-3xl tracking-wide">Seatec Services Inc.</span>
+  </div>
+  <ul class="flex space-x-4">
+    <li><a href="#projects" class="nav-button">Projects</a></li>
+    <li><a href="#gallery" class="nav-button">Gallery</a></li>
+    <li><a href="#partners" class="nav-button">Partners</a></li>
+    <li><a href="#contact" class="nav-button">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="relative z-10 hero-offset h-[90vh] flex flex-col items-center justify-center text-center px-4">
+  <h1 class="hero-title">Seatec Services Inc.</h1>
+  <p class="hero-sub">Precision at Depth, Innovation at Sea. Seatec Services Inc. delivers advanced subsea engineering, ROV/AUV operations and trenching support to the world’s most challenging marine environments.</p>
+  <a href="#projects" class="hero-button mt-6">Explore Projects →</a>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="relative z-10 py-24 px-6">
+  <h2 class="text-3xl font-heading text-[#ffff00] mb-4 text-center">Projects</h2>
+  <p class="text-blue-200 text-center max-w-3xl mx-auto mb-10">
+    A selection of our subsea engineering and ROV/AUV projects around the globe.
+  </p>
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8" data-aos="fade-up">
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Subsea Telecoms</div>
+  <div class="project-title">IT Telecom – RovJet 605</div>
+  <div class="project-text">
+    Canadian subsea telecom cable installation and maintenance using the RovJet 605 system. Scope included deep-water route survey, cable lay, post-lay burial, and emergency repair readiness. Seatec supplied offshore project engineering, pilot/technician teams, and 24/7 operations support from 2024 onwards.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Pipeline Trenching</div>
+  <div class="project-title">Pharos Offshore – SMD Q800 Trencher</div>
+  <div class="project-text">
+    Deployment of the SMD Q800 jet-trencher off Sicily for the burial of subsea pipelines. Our team handled mobilization, ROV integration, real-time trenching control, and post-installation survey ensuring specification compliance and minimal seabed impact.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Pre-lay Route Survey</div>
+  <div class="project-title">Argeo – Kongsberg Hugin Astral AUV</div>
+  <div class="project-text">
+    High-resolution pre-lay route surveys for offshore pipeline corridor in Brazil using autonomous underwater vehicles (AUVs). Delivered bathymetric, geophysical and environmental data to optimize cable and pipeline design, reducing installation risk and cost.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Research & Salvage</div>
+  <div class="project-title">Pelagic Research Services – Odyssius ROV</div>
+  <div class="project-text">
+    Provided deep-water ROV operations for archeological and salvage work in the Pacific and Atlantic oceans. Tasks included artifact recovery, wreck site mapping, biological sampling, and live video transmission for onshore research teams.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Shipwreck Recovery</div>
+  <div class="project-title">Deep Ocean Search – SS City of Cairo</div>
+  <div class="project-text">
+    Assisted in the deepwater recovery of precious metals from the WWII shipwreck “SS City of Cairo” at ~5,000 m depth. Managed heavy-lift ROV tooling, survey sensors, and safe recovery protocols under extreme conditions.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">ROV & Scientific Support</div>
+  <div class="project-title">Nautilus Live – Benthic Crawler “Wally”</div>
+  <div class="project-text">
+    Support for benthic crawler “Wally” and Nautilus ROV operations at deep-sea observatories. Integrated environmental sensors, managed fiber-optic umbilicals, and provided 24/7 subsea engineering during live broadcasts to the public.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Extreme Environments</div>
+  <div class="project-title">Hydrothermal Vents Exploration</div>
+  <div class="project-text">
+    Deep-sea exploration of hydrothermal vent systems using advanced ROVs and sampling equipment. Collected geochemical and biological samples at depths over 3,000 m, contributing to research on chemosynthetic ecosystems.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Offshore Oil & Gas</div>
+  <div class="project-title">Oceaneering – Petrobras Subsea Robotics Contract</div>
+  <div class="project-text">
+    Multi-year support contract supplying ROV pilots and subsea engineers for Petrobras operations. Provided intervention tooling, subsea metrology, and emergency response teams across multiple deepwater assets offshore Brazil.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Robotics & Autonomous Systems</div>
+  <div class="project-title">Nauticus Robotics & Advanced Ocean Systems – MSA</div>
+  <div class="project-text">
+    Collaboration on multi-sensor autonomous platforms integrating ROV and AUV capabilities. Our role included sensor fusion, subsea control software, and offshore testing to validate hybrid operations.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Hybrid Platforms</div>
+  <div class="project-title">Open Ocean & Nauticus Collaboration</div>
+  <div class="project-text">
+    Supporting development of hybrid ROV/AUV platforms for subsea inspection and monitoring. Focused on low-carbon operations, extended endurance, and advanced AI for anomaly detection.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Marine Archaeology</div>
+  <div class="project-title">Ancient Shipwreck – Adrasan, Turkey</div>
+  <div class="project-text">
+    Delicate ROV inspections and 3D photogrammetry of an ancient shipwreck off Adrasan, Turkey. Delivered HD imagery for artifact cataloguing and site preservation planning with local authorities and researchers.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">AUV/ROV Survey</div>
+  <div class="project-title">Pipeline Route Survey – North Sea</div>
+  <div class="project-text">
+    Combined AUV and ROV operations for route survey and environmental baseline assessment in the North Sea. Delivered integrated datasets for pipeline engineering and permitting compliance.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Shore End Operations</div>
+  <div class="project-title">Cable Landing Support – East Coast Canada</div>
+  <div class="project-text">
+    Managed shore-end cable landings including diver support, ROV trenching, and jointing operations in challenging tidal environments. Achieved on-time delivery with zero safety incidents.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Pipeline Installation</div>
+  <div class="project-title">Deep Trenching – Baltic Sea</div>
+  <div class="project-text">
+    Subsea trenching and burial support for a new interconnector pipeline. Designed and installed custom trenching tools to manage glacial till seabed conditions and meet specified burial depths.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Asset Removal</div>
+  <div class="project-title">ROV Decommissioning – Gulf of Mexico</div>
+  <div class="project-text">
+    Decommissioning of subsea structures, cutting and recovery of flowlines, and plugging of wells. Employed heavy-duty ROV tooling and debris management plans to ensure safe, environmentally compliant removal.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Shipwreck Salvage</div>
+  <div class="project-title">Salvage of WWII Vessel – Pacific</div>
+  <div class="project-text">
+    High-profile WWII wreck salvage operations in the Pacific. Precision navigation, 3D sonar mapping, and custom lift bags enabled recovery of sensitive artifacts from >2,500 m depth.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">AUV Survey</div>
+  <div class="project-title">Autonomous Environmental Survey – Norwegian Fjords</div>
+  <div class="project-text">
+    Long-endurance AUV environmental baseline surveys in Norwegian fjords. Delivered water-column chemistry profiles, seabed mapping, and biodiversity indexing to client scientists and regulators.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Mooring & FPSO</div>
+  <div class="project-title">Subsea Anchor Installation – West Africa</div>
+  <div class="project-text">
+    Engineered and executed installation of subsea anchors and mooring chains for FPSO operations offshore West Africa. Provided load testing, subsea inspection, and as-built documentation.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Latitude Operations</div>
+  <div class="project-title">Hybrid ROV/AUV Survey – Arctic</div>
+  <div class="project-text">
+    Hybrid ROV/AUV systems in Arctic waters for high-latitude pipeline inspection. Managed ice cover logistics, extended tether lengths, and cold-weather adaptations for vehicles and sensors.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Telecoms</div>
+  <div class="project-title">Shore-End Cable Landing – Mediterranean</div>
+  <div class="project-text">
+    Nearshore ROV support for multiple fiber optic cable landings. Plough operations, diver support, and environmental monitoring in shallow coastal zones with strict permitting windows.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Academic Partnerships</div>
+  <div class="project-title">Research Collaboration with University Labs</div>
+  <div class="project-text">
+    Collaboration with universities on subsea robotics and sensing. Hosted interns on offshore campaigns, supported joint funding bids, and shared curated datasets for peer-reviewed research.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Renewable Energy</div>
+  <div class="project-title">Offshore Wind Farm Cable Installation – UK</div>
+  <div class="project-text">
+    ROVs and trenching systems for inter-array and export cable installation at offshore wind projects in the North Sea. Focus on cable protection, fatigue mitigation, and burial verification to OEM specs.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">FPSO Inspection</div>
+  <div class="project-title">Inspection of Floating Production Units – Brazil</div>
+  <div class="project-text">
+    Routine and special-purpose inspections of FPSO subsea systems offshore Brazil. Delivered UT thickness readings, CP surveys, and high-resolution video for integrity management decisions.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Telecoms</div>
+  <div class="project-title">Emergency Cable Repair – Atlantic</div>
+  <div class="project-text">
+    Rapid emergency mobilization to repair critical fiber optic cables in the Atlantic. Achieved restoration under harsh winter conditions with tight weather windows and challenging sea states.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Oil & Gas</div>
+  <div class="project-title">Pipeline Maintenance – North Sea</div>
+  <div class="project-text">
+    IMR campaigns for subsea pipelines in the North Sea. Included valve operations, spoolpiece replacement, anode installation, and debris clearance to maintain system reliability.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">AUV Survey</div>
+  <div class="project-title">Environmental Baseline Survey – Gulf of Mexico</div>
+  <div class="project-text">
+    AUV-mounted sensors collected environmental baseline data across multiple lease blocks. Delivered 3D bathymetry, sediment chemistry, and habitat maps to support EIA submissions.
+  </div>
+</div>
+
+<div class="project-card" data-aos="fade-up">
+  <div class="project-cat">Shipwreck Archaeology</div>
+  <div class="project-title">Deepwater Wreck Identification – Caribbean</div>
+  <div class="project-text">
+    ROV-assisted wreck identification and artifact assessment in the Caribbean. Produced ultra-HD imagery and multibeam mosaics for academic and government partners.
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="relative z-10 py-24 px-6 bg-gradient-to-b from-transparent to-[#021527]">
+  <h2 class="text-3xl font-heading text-[#ffff00] mb-4 text-center">Gallery</h2>
+  <p class="text-blue-200 text-center max-w-3xl mx-auto mb-10">
+    Highlights from our offshore campaigns, subsea operations and project achievements.
+  </p>
+
+  <div id="gallery-grid">
+<!-- Videos -->
+<video class="gallery-thumb" controls preload="metadata">
+  <source src="images/Timeline%201.mp4" type="video/mp4">
+</video>
+<video class="gallery-thumb" controls preload="metadata">
+  <source src="images/Video%20(5).mp4" type="video/mp4">
+</video>
+<video class="gallery-thumb" controls preload="metadata">
+  <source src="images/Video%20(6).mp4" type="video/mp4">
+</video>
+<video class="gallery-thumb" controls preload="metadata">
+  <source src="images/Video%20(7).mp4" type="video/mp4">
+</video>
+</video>
+
+<!-- Images -->
+ <img src="images/image (27).jpg" alt="">
+   <img src="images/image%20(1).png" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(2).png" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(1).avif" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(2).avif" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(3).avif" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(4).avif" class="gallery-thumb" loading="lazy">
+
+<img src="images/image%20(1).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(2).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(3).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(4).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(5).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(6).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(7).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(8).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(9).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(10).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(11).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(12).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(13).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(14).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(15).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(16).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(17).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(18).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(19).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(20).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(21).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(22).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(23).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(24).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(25).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(26).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(27).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(28).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(29).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(30).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(31).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(32).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(33).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(34).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(35).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(36).JPG" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(37).JPG" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(38).JPG" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(39).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(40).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(41).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(42).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(43).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(44).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(45).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(46).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(47).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(48).jpg" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(49).jpg" class="gallery-thumb" loading="lazy">
+
+  <p class="text-blue-300 text-center mt-16">Explore our trusted partners and clients below.</p>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners" class="relative z-10 py-24 px-6 bg-gradient-to-b from-[#021527] to-[#010d1c]">
+  <h2 class="text-3xl font-heading text-[#ffff00] mb-8 text-center">Our Partners & Clients</h2>
+  <p class="text-blue-200 text-center max-w-3xl mx-auto mb-10">
+    We’ve collaborated with leading telecom, energy, government, and research organizations worldwide.
+  </p>
+
+  <div id="partners-grid" data-aos="fade-up">
+  <a href="https://www.bell.ca" target="_blank" class="nav-button">Bell Canada</a>
+    <a href="https://www.telus.com" target="_blank" class="nav-button">Telus</a>
+    <a href="https://www.verizon.com" target="_blank" class="nav-button">Verizon</a>
+    <a href="https://www.eni.com" target="_blank" class="nav-button">Eni</a>
+    <a href="https://www.ksc.co.id" target="_blank" class="nav-button">KSC</a>
+    <a href="https://www.kml-offshore.com" target="_blank" class="nav-button">KML</a>
+    <a href="https://www.oceanpact.com.br" target="_blank" class="nav-button">OceanPact</a>
+    <a href="https://petrobras.com.br" target="_blank" class="nav-button">Petrobras</a>
+    <a href="https://www.horizonmarineservices.com" target="_blank" class="nav-button">Horizon Marine</a>
+    <a href="https://themetalscompany.com" target="_blank" class="nav-button">Deep Green</a>
+    <a href="https://www.oceannetworks.ca" target="_blank" class="nav-button">Ocean Network Canada</a>
+    <a href="https://www.canada.ca" target="_blank" class="nav-button">Govt of Canada</a>
+    <a href="https://www.chevron.com" target="_blank" class="nav-button">Chevron</a>
+    <a href="https://nextgeosolutions.com" target="_blank" class="nav-button">Next Geo Solutions</a>
+    <a href="https://www.subcom.com" target="_blank" class="nav-button">Subcom</a>
+    <a href="https://www.defense.gov" target="_blank" class="nav-button">US Dept of Defense</a>
+    <a href="https://ctoffshore.dk" target="_blank" class="nav-button">CT Offshore</a>
+    <a href="https://www.technipenergies.com" target="_blank" class="nav-button">Technip</a>
+    <a href="https://www.tata.com" target="_blank" class="nav-button">TATA</a>
+    <a href="https://group.vattenfall.com" target="_blank" class="nav-button">Vattenfall</a>
+    <a href="https://www.odysseymarine.com" target="_blank" class="nav-button">Odyssey Marine Exploration</a>
+    <a href="https://totalenergies.com" target="_blank" class="nav-button">Total</a>
+    <a href="https://globalmarine.group" target="_blank" class="nav-button">Global Marine</a>
+    <a href="https://www.hibernia.ca" target="_blank" class="nav-button">Hibernia</a>
+    <a href="https://acma2013.com" target="_blank" class="nav-button">ACMA</a>
+    <a href="https://www.imca-int.com" target="_blank" class="nav-button">IMCA</a>
+    <a href="https://www.shell.com" target="_blank" class="nav-button">Shell</a>
+    <a href="https://www.bp.com" target="_blank" class="nav-button">BP</a>
+    <a href="https://nautiluslive.org" target="_blank" class="nav-button">Nautilus Live</a>
+  </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="relative z-10 py-28 px-6 bg-gradient-to-b from-[#010d1c] to-[#000000]">
+  <h2 class="text-3xl font-heading text-[#ffff00] mb-6 text-center">Contact Us</h2>
+  <p class="text-blue-200 mb-12 text-center max-w-2xl mx-auto">
+    We’re available to discuss your next subsea engineering project in more detail.
+    Please reach out via email or phone:
+  </p>
+  <div class="max-w-lg mx-auto p-10 bg-[#021527]/40 rounded-xl space-y-6 shadow-lg contact-card" data-aos="fade-up">
+    <div>
+      <strong class="block text-white mb-1">Email:</strong>
+      <a href="mailto:olivercrogers@hotmail.com" class="text-[#ffff00] underline hover:text-[#e6e600] text-lg">
+        olivercrogers@hotmail.com
+      </a>
+    </div>
+    <div>
+      <strong class="block text-white mb-1">Phone:</strong>
+      <a href="tel:+12507321313" class="text-[#ffff00] underline hover:text-[#e6e600] text-lg">
+        +1 250 732 1313
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-50">
+  <div id="lightbox-content" class="max-w-[90vw] max-h-[90vh]"></div>
+</div>
+
+<footer class="relative z-10 text-center text-blue-300 py-10">
+  © <span id="year"></span> Seatec Services Inc. • All rights reserved.
+</footer>
+
+<script>
+AOS.init({ duration: 800, once: true });
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Bubble generator
+(function makeBubbles(){
+  const holder = document.getElementById('bubbles');
+  for(let i=0;i<48;i++){
+    const b = document.createElement('span');
+    b.className = 'bubble';
+    const size = 4 + Math.random()*10;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = (Math.random()*100) + 'vw';
+    b.style.setProperty('--dur', (10 + Math.random()*14) + 's');
+    b.style.animationDelay = (Math.random()*-20) + 's';
+    holder.appendChild(b);
+  }
+})();
+
+// Enhanced Lightbox for images + videos
+const lightbox = document.getElementById('lightbox');
+const lightboxContent = document.getElementById('lightbox-content');
+
+document.addEventListener('click', e => {
+  // If clicked image
+  if (e.target.closest('#gallery-grid img')) {
+    const src = e.target.src;
+    lightboxContent.innerHTML = `<img src="${src}" class="max-h-[90vh] max-w-[90vw] rounded-lg">`;
+    openLightbox();
+  }
+  // If clicked video
+  if (e.target.closest('#gallery-grid video')) {
+    const videoSrc = e.target.querySelector('source').src || e.target.src;
+    lightboxContent.innerHTML = `
+      <video controls autoplay class="max-h-[90vh] max-w-[90vw] rounded-lg">
+        <source src="${videoSrc}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>`;
+    openLightbox();
+  }
+  // If clicked outside content to close
+  if (e.target.id === 'lightbox') closeLightbox();
+});
+
+function openLightbox() {
+  lightbox.classList.remove('hidden');
+  requestAnimationFrame(() => lightbox.classList.add('show'));
+}
+function closeLightbox() {
+  lightbox.classList.remove('show');
+  setTimeout(() => {
+    lightbox.classList.add('hidden');
+    lightboxContent.innerHTML = '';
+  }, 300);
+}
+</script>
+</body>
+</html>
