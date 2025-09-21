@@ -96,6 +96,20 @@ h1,h2,h3,h4,h5,h6,.font-heading{
               0 0 24px var(--accent-yellow);
   transform: translateY(-2px);
 }
+.embossed-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px; /* adjust size as needed */
+  height: 500px;
+  background: url('rov.png') center/contain no-repeat;
+  opacity: 0.05; /* how faded it looks */
+  transform: translate(-50%, -50%);
+  z-index: 1; /* behind content but above background */
+  filter: grayscale(100%) contrast(200%) brightness(150%) blur(0.5px);
+  pointer-events: none; /* lets you click through it */
+}
+
 
 /* Project cards */
 .project-card{ background:transparent; border-radius:1rem; padding:1.5rem; box-shadow:0 8px 15px rgba(0,0,0,.4); transition:transform .25s ease; }
@@ -187,6 +201,7 @@ section { color:#fff; }
 <body>
 <div class="scrolling-bg"></div>
 <div class="bg-bubbles"><div id="bubbles"></div></div>
+<div class="embossed-logo"></div>
 
 <!-- FIXED NAVBAR -->
 <nav class="fixed top-0 left-0 w-full z-50 navwrap flex items-center justify-between px-6 py-4">
@@ -541,6 +556,7 @@ section { color:#fff; }
     <a href="https://www.chevron.com" target="_blank" class="nav-button">Chevron</a>
     <a href="https://www.subcom.com" target="_blank" class="nav-button">Subcom</a>
     <a href="https://www.defense.gov" target="_blank" class="nav-button">US Dept of Defense</a>
+    <a href="https://ctoffshore.dk" target="_blank" class="nav-button">CT Offshore</a>
     <a href="https://www.technipenergies.com" target="_blank" class="nav-button">Technip</a>
     <a href="https://www.tata.com" target="_blank" class="nav-button">TATA</a>
     <a href="https://group.vattenfall.com" target="_blank" class="nav-button">Vattenfall</a>
@@ -566,8 +582,8 @@ section { color:#fff; }
   <div class="max-w-lg mx-auto p-10 bg-[#021527]/40 rounded-xl space-y-6 shadow-lg contact-card" data-aos="fade-up">
     <div>
       <strong class="block text-white mb-1">Email:</strong>
-      <a href="mailto:oli@seatecservices.ca" class="text-[#ffff00] underline hover:text-[#e6e600] text-lg">
-        oli@seatecservices.ca
+      <a href="mailto:olivercrogers@hotmail.com" class="text-[#ffff00] underline hover:text-[#e6e600] text-lg">
+        olivercrogers@hotmail.com
       </a>
     </div>
     <div>
