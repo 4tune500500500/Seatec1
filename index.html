@@ -5,11 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Seatec Services Inc.</title>
 
-<link rel="icon" type="image/png" href="rov.png" />
+<!-- Preconnects for faster font/CDN fetch -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+<link rel="icon" type="image/png" href="logo.png" />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com" defer></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
 
 <style>
 :root{
@@ -23,6 +28,7 @@ body{
   color:#fff;
   font-family:'Rajdhani',sans-serif;
   overflow-x:hidden;
+  background:#000; /* fallback while gradient paints */
 }
 h1,h2,h3,h4,h5,h6,.font-heading{
   font-family:'Orbitron',sans-serif;
@@ -61,6 +67,12 @@ h1,h2,h3,h4,h5,h6,.font-heading{
   filter:blur(0.2px);
 }
 
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .bubble{ animation: none; }
+  [data-aos]{ transition: none !important; transform: none !important; opacity: 1 !important; }
+}
+
 /* Buttons */
 .nav-button{
   border:1px solid var(--accent-yellow);
@@ -69,13 +81,14 @@ h1,h2,h3,h4,h5,h6,.font-heading{
   transition:all .25s ease;
   box-shadow: 0 0 4px rgba(255,255,0,.3);
 }
-.nav-button:hover {
+.nav-button:hover, .nav-button:focus-visible {
   background: var(--accent-yellow);
   color: #021527;
   box-shadow: 0 0 8px var(--accent-yellow),
               0 0 16px var(--accent-yellow),
               0 0 24px var(--accent-yellow);
   transform: translateY(-2px);
+  outline: none;
 }
 
 /* Hero button glow */
@@ -89,12 +102,13 @@ h1,h2,h3,h4,h5,h6,.font-heading{
   transition: all .25s ease;
   box-shadow: 0 0 4px rgba(255,255,0,.3);
 }
-.hero-button:hover {
+.hero-button:hover, .hero-button:focus-visible {
   background: #e6e600;
   box-shadow: 0 0 8px var(--accent-yellow),
               0 0 16px var(--accent-yellow),
               0 0 24px var(--accent-yellow);
   transform: translateY(-2px);
+  outline: none;
 }
 .embossed-logo {
   position: fixed;
@@ -158,13 +172,14 @@ h1,h2,h3,h4,h5,h6,.font-heading{
   transition:all .25s ease;
   box-shadow:0 0 4px rgba(255,255,0,.3);
 }
-#partners-grid a:hover {
+#partners-grid a:hover, #partners-grid a:focus-visible {
   background: var(--accent-yellow);
   color: #021527;
   box-shadow:0 0 8px var(--accent-yellow),
              0 0 16px var(--accent-yellow),
              0 0 24px var(--accent-yellow);
   transform:translateY(-2px);
+  outline: none;
 }
 
 /* Contact card */
@@ -201,12 +216,12 @@ section { color:#fff; }
 <body>
 <div class="scrolling-bg"></div>
 <div class="bg-bubbles"><div id="bubbles"></div></div>
-<div class="embossed-logo"></div>
+<div class="embossed-logo" aria-hidden="true"></div>
 
 <!-- FIXED NAVBAR -->
-<nav class="fixed top-0 left-0 w-full z-50 navwrap flex items-center justify-between px-6 py-4">
+<nav class="fixed top-0 left-0 w-full z-50 navwrap flex items-center justify-between px-6 py-4" aria-label="Primary">
   <div class="flex items-center space-x-3">
-    <img src="rov.png" alt="Seatec ROV Logo" class="h-24 w-auto">
+    <img src="rov.png" alt="Seatec ROV Logo" class="h-24 w-auto" loading="lazy" width="192" height="96">
     <span class="text-[#ffff00] font-heading text-3xl tracking-wide">Seatec Services Inc.</span>
   </div>
   <ul class="flex space-x-4">
@@ -220,7 +235,7 @@ section { color:#fff; }
 <!-- HERO -->
 <section id="hero" class="relative z-10 hero-offset h-[90vh] flex flex-col items-center justify-center text-center px-4">
   <h1 class="hero-title">Seatec Services Inc.</h1>
-  <p class="hero-sub">Precision at Depth. Innovation at Sea. Seatec Services Inc. brings over two decades of hands-on subsea expertise to the world’s most challenging marine environments. We deliver advanced subsea engineering, ROV/AUV operations, trenching and cable-installation support — from deepwater telecoms to shallow-water windfarm and pipeline projects. Drawing on extensive global experience with leading systems such as Schilling HD, Perry ST200/XLX, Sub Atlantic Comanche, Kongsberg Hugin and SMD trenchers, we offer complete mobilization, operational, and technical consultancy services. Our team’s track record spans the North Sea, Pacific, South China Sea, Brazil, Alaska, and beyond, providing safe, efficient and innovative solutions to telecom operators, energy majors, research institutions and government agencies alike.ing support to the world’s most challenging marine environments.</p>
+  <p class="hero-sub">Precision at Depth. Innovation at Sea. Seatec Services Inc. brings over two decades of hands-on subsea expertise to the world’s most challenging marine environments. We deliver advanced subsea engineering, ROV/AUV operations, trenching and cable-installation support — from deepwater telecoms to shallow-water windfarm and pipeline projects. Drawing on extensive global experience with leading systems such as Schilling HD, Perry ST200/XLX, Sub Atlantic Comanche, Kongsberg Hugin and SMD trenchers, we offer complete mobilization, operational, and technical consultancy services. Our team’s track record spans the North Sea, Pacific, South China Sea, Brazil, Alaska, and beyond, providing safe, efficient and innovative solutions to telecom operators, energy majors, research institutions and government agencies alike.</p>
   <a href="#projects" class="hero-button mt-6">Explore Projects →</a>
 </section>
 
@@ -458,79 +473,80 @@ section { color:#fff; }
   </p>
 
   <div id="gallery-grid">
-<!-- Videos -->
-<video class="gallery-thumb" controls preload="metadata">
-  <source src="images/Timeline%201.mp4" type="video/mp4">
-</video>
-<video class="gallery-thumb" controls preload="metadata">
-  <source src="images/Video%20(5).mp4" type="video/mp4">
-</video>
-<video class="gallery-thumb" controls preload="metadata">
-  <source src="images/Video%20(6).mp4" type="video/mp4">
-</video>
-<video class="gallery-thumb" controls preload="metadata">
-  <source src="images/Video%20(7).mp4" type="video/mp4">
-</video>
-</video>
+    <!-- Lightweight, lazy videos: sources set via data-src when in view -->
+   <!-- Videos -->
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(1).mp4"></video>
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(2).mp4"></video>
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(3).mp4"></video>
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(4).mp4"></video>
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(5).mp4"></video>
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(6).mp4"></video>
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(7).mp4"></video>
+<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(8).mp4"></video>
 
 <!-- Images -->
- <img src="images/image (27).jpg" alt="">
-   <img src="images/image%20(1).png" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(2).png" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(1).avif" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(2).avif" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(3).avif" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(4).avif" class="gallery-thumb" loading="lazy">
+<img src="images/image%20(1).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(2).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(3).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(4).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(5).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(6).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(7).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(8).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(19).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(20).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(21).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(22).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(23).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(24).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(25).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(26).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(27).JPG" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(28).JPG" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(29).JPG" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(34).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(35).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(36).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(37).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(38).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(41).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(42).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(50).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(51).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(52).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(53).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(54).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(55).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(56).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(57).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(58).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(59).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(60).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(61).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(62).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(63).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(64).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(65).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(66).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(67).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(68).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(69).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(70).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(71).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(72).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(73).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(74).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(75).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(76).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(77).jpg" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(3).png" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(1).png" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(1).avif" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(5).avif" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(6).avif" loading="lazy" width="1280" height="720" alt="">
+<img src="images/image%20(7).avif" loading="lazy" width="1280" height="720" alt="">
 
-<img src="images/image%20(1).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(2).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(3).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(4).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(5).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(6).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(7).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(8).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(9).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(10).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(11).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(12).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(13).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(14).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(15).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(16).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(17).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(18).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(19).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(20).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(21).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(22).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(23).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(24).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(25).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(26).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(27).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(28).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(29).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(30).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(31).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(32).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(33).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(34).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(35).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(36).JPG" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(37).JPG" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(38).JPG" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(39).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(40).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(41).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(42).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(43).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(44).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(45).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(46).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(47).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(48).jpg" class="gallery-thumb" loading="lazy">
-<img src="images/image%20(49).jpg" class="gallery-thumb" loading="lazy">
+  </div>
 
   <p class="text-blue-300 text-center mt-16">Explore our trusted partners and clients below.</p>
 </section>
@@ -543,32 +559,31 @@ section { color:#fff; }
   </p>
 
   <div id="partners-grid" data-aos="fade-up">
-  <a href="https://www.bell.ca" target="_blank" class="nav-button">Bell Canada</a>
-    <a href="https://www.telus.com" target="_blank" class="nav-button">Telus</a>
-    <a href="https://www.verizon.com" target="_blank" class="nav-button">Verizon</a>
-    <a href="https://www.eni.com" target="_blank" class="nav-button">Eni</a>
-    <a href="https://www.oceanpact.com.br" target="_blank" class="nav-button">OceanPact</a>
-    <a href="https://petrobras.com.br" target="_blank" class="nav-button">Petrobras</a>
-    <a href="https://www.horizonmarineservices.com" target="_blank" class="nav-button">Horizon Marine</a>
-    <a href="https://themetalscompany.com" target="_blank" class="nav-button">Deep Green</a>
-    <a href="https://www.oceannetworks.ca" target="_blank" class="nav-button">Ocean Network Canada</a>
-    <a href="https://www.canada.ca" target="_blank" class="nav-button">Govt of Canada</a>
-    <a href="https://www.chevron.com" target="_blank" class="nav-button">Chevron</a>
-    <a href="https://www.subcom.com" target="_blank" class="nav-button">Subcom</a>
-    <a href="https://www.defense.gov" target="_blank" class="nav-button">US Dept of Defense</a>
-    <a href="https://ctoffshore.dk" target="_blank" class="nav-button">CT Offshore</a>
-    <a href="https://www.technipenergies.com" target="_blank" class="nav-button">Technip</a>
-    <a href="https://www.tata.com" target="_blank" class="nav-button">TATA</a>
-    <a href="https://group.vattenfall.com" target="_blank" class="nav-button">Vattenfall</a>
-    <a href="https://www.odysseymarine.com" target="_blank" class="nav-button">Odyssey Marine Exploration</a>
-    <a href="https://totalenergies.com" target="_blank" class="nav-button">Total</a>
-    <a href="https://globalmarine.group" target="_blank" class="nav-button">Global Marine</a>
-    <a href="https://www.hibernia.ca" target="_blank" class="nav-button">Hibernia</a>
-    <a href="https://www.imca-int.com" target="_blank" class="nav-button">IMCA</a>
-    <a href="https://www.shell.com" target="_blank" class="nav-button">Shell</a>
-    <a href="https://www.bp.com" target="_blank" class="nav-button">BP</a>
-    <a href="https://nautiluslive.org" target="_blank" class="nav-button">Nautilus Live</a>
-  </div>
+    <a href="https://www.bell.ca" target="_blank" class="nav-button" rel="noopener">Bell Canada</a>
+    <a href="https://www.telus.com" target="_blank" class="nav-button" rel="noopener">Telus</a>
+    <a href="https://www.verizon.com" target="_blank" class="nav-button" rel="noopener">Verizon</a>
+    <a href="https://www.eni.com" target="_blank" class="nav-button" rel="noopener">Eni</a>
+    <a href="https://www.oceanpact.com.br" target="_blank" class="nav-button" rel="noopener">OceanPact</a>
+    <a href="https://petrobras.com.br" target="_blank" class="nav-button" rel="noopener">Petrobras</a>
+    <a href="https://www.horizonmarineservices.com" target="_blank" class="nav-button" rel="noopener">Horizon Marine</a>
+    <a href="https://themetalscompany.com" target="_blank" class="nav-button" rel="noopener">Deep Green</a>
+    <a href="https://www.oceannetworks.ca" target="_blank" class="nav-button" rel="noopener">Ocean Network Canada</a>
+    <a href="https://www.canada.ca" target="_blank" class="nav-button" rel="noopener">Govt of Canada</a>
+    <a href="https://www.chevron.com" target="_blank" class="nav-button" rel="noopener">Chevron</a>
+    <a href="https://www.subcom.com" target="_blank" class="nav-button" rel="noopener">Subcom</a>
+    <a href="https://www.defense.gov" target="_blank" class="nav-button" rel="noopener">US Dept of Defense</a>
+    <a href="https://ctoffshore.dk" target="_blank" class="nav-button" rel="noopener">CT Offshore</a>
+    <a href="https://www.technipenergies.com" target="_blank" class="nav-button" rel="noopener">Technip</a>
+    <a href="https://www.tata.com" target="_blank" class="nav-button" rel="noopener">TATA</a>
+    <a href="https://group.vattenfall.com" target="_blank" class="nav-button" rel="noopener">Vattenfall</a>
+    <a href="https://www.odysseymarine.com" target="_blank" class="nav-button" rel="noopener">Odyssey Marine Exploration</a>
+    <a href="https://totalenergies.com" target="_blank" class="nav-button" rel="noopener">Total</a>
+    <a href="https://globalmarine.group" target="_blank" class="nav-button" rel="noopener">Global Marine</a>
+    <a href="https://www.hibernia.ca" target="_blank" class="nav-button" rel="noopener">Hibernia</a>
+    <a href="https://www.imca-int.com" target="_blank" class="nav-button" rel="noopener">IMCA</a>
+    <a href="https://www.shell.com" target="_blank" class="nav-button" rel="noopener">Shell</a>
+    <a href="https://www.bp.com" target="_blank" class="nav-button" rel="noopener">BP</a>
+    <a href="https://nautiluslive.org" target="_blank" class="nav-button" rel="noopener">Nautilus Live</a>
   </div>
 </section>
 
@@ -596,7 +611,7 @@ section { color:#fff; }
 </section>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-50">
+<div id="lightbox" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-50" role="dialog" aria-modal="true" aria-label="Media viewer">
   <div id="lightbox-content" class="max-w-[90vw] max-h-[90vh]"></div>
 </div>
 
@@ -605,13 +620,16 @@ section { color:#fff; }
 </footer>
 
 <script>
-AOS.init({ duration: 800, once: true });
-document.getElementById('year').textContent = new Date().getFullYear();
+// Init AOS when ready
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.AOS) AOS.init({ duration: 800, once: true });
+  document.getElementById('year').textContent = new Date().getFullYear();
+});
 
 // Bubble generator
 (function makeBubbles(){
   const holder = document.getElementById('bubbles');
-  for(let i=0;i<48;i++){
+  for(let i=0;i<40;i++){
     const b = document.createElement('span');
     b.className = 'bubble';
     const size = 4 + Math.random()*10;
@@ -624,26 +642,64 @@ document.getElementById('year').textContent = new Date().getFullYear();
   }
 })();
 
+// IntersectionObserver: lazy-attach <source> to videos only when visible
+const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const v = entry.target;
+      if (!v.querySelector('source')) {
+        const src = v.getAttribute('data-src');
+        if (src) {
+          const s = document.createElement('source');
+          s.src = src;
+          s.type = 'video/mp4';
+          v.appendChild(s);
+          // Load metadata but don't autoplay
+          v.load();
+        }
+      }
+      obs.unobserve(v);
+    }
+  });
+}, { rootMargin: '200px 0px' }) : null;
+
+document.querySelectorAll('#gallery-grid video[data-src]').forEach(v => {
+  if (io) io.observe(v);
+  else {
+    // Fallback without IO
+    const s = document.createElement('source');
+    s.src = v.getAttribute('data-src');
+    s.type = 'video/mp4';
+    v.appendChild(s);
+    v.load();
+  }
+});
+
 // Enhanced Lightbox for images + videos
 const lightbox = document.getElementById('lightbox');
 const lightboxContent = document.getElementById('lightbox-content');
 
 document.addEventListener('click', e => {
   // If clicked image
-  if (e.target.closest('#gallery-grid img')) {
-    const src = e.target.src;
-    lightboxContent.innerHTML = `<img src="${src}" class="max-h-[90vh] max-w-[90vw] rounded-lg">`;
+  const img = e.target.closest('#gallery-grid img');
+  if (img) {
+    const src = img.getAttribute('src');
+    lightboxContent.innerHTML = `<img src="${src}" class="max-h-[90vh] max-w-[90vw] rounded-lg" alt="">`;
     openLightbox();
+    return;
   }
   // If clicked video
-  if (e.target.closest('#gallery-grid video')) {
-    const videoSrc = e.target.querySelector('source').src || e.target.src;
+  const vid = e.target.closest('#gallery-grid video');
+  if (vid) {
+    const sourceEl = vid.querySelector('source');
+    const videoSrc = sourceEl ? sourceEl.src : vid.getAttribute('data-src');
     lightboxContent.innerHTML = `
       <video controls autoplay class="max-h-[90vh] max-w-[90vw] rounded-lg">
         <source src="${videoSrc}" type="video/mp4">
         Your browser does not support the video tag.
       </video>`;
     openLightbox();
+    return;
   }
   // If clicked outside content to close
   if (e.target.id === 'lightbox') closeLightbox();
