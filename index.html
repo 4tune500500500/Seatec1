@@ -1,721 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Seatec Services Inc.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Seatec Services Inc. provides subsea technical writing, remote technical support, ROV and subsea project readiness audits, mobilization, commissioning and troubleshooting support.">
+  <title>Seatec Services Inc. | Subsea Technical Support & Project Readiness</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    :root {
+      --bg: #03111d;
+      --bg-deep: #01070c;
+      --panel: rgba(7, 29, 45, 0.78);
+      --panel-strong: #071d2d;
+      --line: rgba(125, 194, 220, 0.20);
+      --text: #f3f8fb;
+      --muted: #a8c0ce;
+      --accent: #e7ff2f;
+      --accent-soft: rgba(231, 255, 47, 0.10);
+      --blue: #62b8db;
+      --max: 1180px;
+      --radius: 18px;
+      --shadow: 0 18px 50px rgba(0,0,0,.28);
+    }
 
-<!-- Preconnects for faster font/CDN fetch -->
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 75% 5%, rgba(17, 109, 150, .22), transparent 28rem),
+        linear-gradient(180deg, #07314e 0%, #041b2c 22%, var(--bg) 48%, var(--bg-deep) 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-<link rel="icon" type="image/png" href="logo.png" />
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com" defer></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+    a { color: inherit; }
+    img, video { max-width: 100%; }
+    button, input, textarea { font: inherit; }
+    section { scroll-margin-top: 92px; }
 
-<style>
-:root{
-  --accent-yellow:#ffff00;
-}
-html,body{
-  height:100%;
-  scroll-behavior:smooth;
-}
-body{
-  color:#fff;
-  font-family:'Rajdhani',sans-serif;
-  overflow-x:hidden;
-  background:#000; /* fallback while gradient paints */
-}
-h1,h2,h3,h4,h5,h6,.font-heading{
-  font-family:'Orbitron',sans-serif;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-  font-weight:600;
-}
+    .shell { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .section { padding: 94px 0; position: relative; z-index: 2; }
+    .section-tight { padding: 54px 0; }
 
-/* Background gradient */
-.scrolling-bg {
-  position: fixed; 
-  inset: 0; 
-  z-index: 0;
-  background: linear-gradient(
-    180deg,
-    #036 0%,
-    #024 25%,
-    #012 50%,
-    #000814 75%,
-    #000000 100%
-  );
-  background-size: 100% 300%;
-}
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .78rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
 
-/* Bubble animation */
-@keyframes bubbleRise{
-  0%{ transform:translateY(10vh) scale(0.8); opacity:0 }
-  10%{ opacity:.6 }
-  100%{ transform:translateY(-120vh) scale(1.2); opacity:0 }
-}
-.bubble{
-  position:absolute; bottom:-10vh; width:10px; height:10px;
-  border-radius:9999px; background:rgba(255,255,255,.7);
-  box-shadow:0 0 10px rgba(255,255,255,.5);
-  animation:bubbleRise var(--dur,12s) linear infinite;
-  filter:blur(0.2px);
-}
+    h1, h2, h3 {
+      margin-top: 0;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+    }
+    h1 { font-size: clamp(2.65rem, 7vw, 5.6rem); max-width: 980px; margin-bottom: 24px; }
+    h2 { font-size: clamp(2rem, 4vw, 3.25rem); margin-bottom: 18px; }
+    h3 { font-size: 1.25rem; margin-bottom: 12px; }
+    p { line-height: 1.72; }
 
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .bubble{ animation: none; }
-  [data-aos]{ transition: none !important; transform: none !important; opacity: 1 !important; }
-}
+    .lead { font-size: clamp(1.05rem, 2vw, 1.28rem); color: #c8dbe5; max-width: 800px; }
+    .muted { color: var(--muted); }
 
-/* Buttons */
-.nav-button{
-  border:1px solid var(--accent-yellow);
-  padding:.5rem 1rem; border-radius:.5rem;
-  color:var(--accent-yellow); 
-  transition:all .25s ease;
-  box-shadow: 0 0 4px rgba(255,255,0,.3);
-}
-.nav-button:hover, .nav-button:focus-visible {
-  background: var(--accent-yellow);
-  color: #021527;
-  box-shadow: 0 0 8px var(--accent-yellow),
-              0 0 16px var(--accent-yellow),
-              0 0 24px var(--accent-yellow);
-  transform: translateY(-2px);
-  outline: none;
-}
+    /* NAV */
+    .nav-wrap {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      background: rgba(2, 15, 25, .80);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+    .brand img { width: 66px; height: 52px; object-fit: contain; }
+    .brand-text { font-weight: 800; font-size: clamp(1rem, 2vw, 1.35rem); letter-spacing: .02em; white-space: nowrap; }
+    .brand-text span { color: var(--accent); }
+    .nav-links { display: flex; gap: 8px; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      color: #dbe8ef;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: .93rem;
+      font-weight: 700;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { background: rgba(255,255,255,.07); outline: none; }
+    .nav-links .nav-cta { color: #07131b; background: var(--accent); }
+    .nav-links .nav-cta:hover, .nav-links .nav-cta:focus-visible { background: #f2ff77; }
+    .menu-btn { display: none; background: transparent; border: 1px solid var(--line); color: white; border-radius: 10px; padding: 8px 10px; }
 
-/* Hero button glow */
-.hero-button {
-  background: var(--accent-yellow);
-  color: #021527;
-  font-weight: 600;
-  border-radius: .5rem;
-  padding: .75rem 1.5rem;
-  display: inline-block;
-  transition: all .25s ease;
-  box-shadow: 0 0 4px rgba(255,255,0,.3);
-}
-.hero-button:hover, .hero-button:focus-visible {
-  background: #e6e600;
-  box-shadow: 0 0 8px var(--accent-yellow),
-              0 0 16px var(--accent-yellow),
-              0 0 24px var(--accent-yellow);
-  transform: translateY(-2px);
-  outline: none;
-}
-.embossed-logo {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 500px; /* adjust size as needed */
-  height: 500px;
-  background: url('rov.png') center/contain no-repeat;
-  opacity: 0.05; /* how faded it looks */
-  transform: translate(-50%, -50%);
-  z-index: 1; /* behind content but above background */
-  filter: grayscale(100%) contrast(200%) brightness(150%) blur(0.5px);
-  pointer-events: none; /* lets you click through it */
-}
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      padding: 150px 0 80px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      isolation: isolate;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 210px;
+      background: linear-gradient(180deg, transparent, rgba(1,7,12,.78));
+      z-index: -1;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 70px; align-items: center; }
+    .hero h1 strong { color: var(--accent); font-weight: 800; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 19px;
+      border-radius: 11px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--accent); color: #06131b; }
+    .button-secondary { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.04); }
 
+    .hero-proof {
+      background: linear-gradient(160deg, rgba(9,41,63,.90), rgba(3,20,32,.88));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .hero-proof img { width: 180px; height: 128px; object-fit: contain; display: block; margin: 0 auto 18px; }
+    .stat { padding: 17px 0; border-top: 1px solid var(--line); }
+    .stat:first-of-type { border-top: none; }
+    .stat strong { display: block; font-size: 1.18rem; }
+    .stat span { color: var(--muted); font-size: .92rem; }
 
-/* Project cards */
-.project-card{ background:transparent; border-radius:1rem; padding:1.5rem; box-shadow:0 8px 15px rgba(0,0,0,.4); transition:transform .25s ease; }
-.project-card:hover{ transform:translateY(-4px) }
-.project-cat{ font-size:.8rem; font-weight:700; color:var(--accent-yellow); letter-spacing:.1em }
-.project-title{ font-size:1.2rem; font-weight:700; margin-top:.5rem }
-.project-text{ color:#a5c3d1; font-size:.95rem; margin-top:.25rem }
+    /* SUBTLE BUBBLES */
+    #bubbles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: .35; }
+    .bubble {
+      position: absolute;
+      bottom: -40px;
+      width: 6px;
+      height: 6px;
+      border: 1px solid rgba(205,240,255,.65);
+      border-radius: 50%;
+      animation: rise var(--duration) linear infinite;
+    }
+    @keyframes rise {
+      from { transform: translateY(0) translateX(0); opacity: 0; }
+      15% { opacity: .7; }
+      to { transform: translateY(-115vh) translateX(var(--drift)); opacity: 0; }
+    }
 
-/* Auto-fill Gallery Grid */
-#gallery-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:2rem;
-  width:100%;
-  max-width:90rem;
-  margin:0 auto;
-  justify-items:center;
-}
-#gallery-grid img,
-#gallery-grid video {
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  object-position:center;
-  border-radius:0;
-}
+    /* SECTIONS */
+    .section-head { max-width: 760px; margin-bottom: 38px; }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 285px;
+      padding: 27px;
+      border: 1px solid var(--line);
+      background: linear-gradient(155deg, rgba(8,35,54,.86), rgba(3,18,29,.84));
+      border-radius: var(--radius);
+      box-shadow: 0 12px 36px rgba(0,0,0,.16);
+    }
+    .service-card::before {
+      content: "";
+      position: absolute;
+      width: 110px;
+      height: 3px;
+      left: 27px;
+      top: 0;
+      background: var(--accent);
+    }
+    .service-no { color: var(--accent); font-size: .8rem; font-weight: 900; letter-spacing: .15em; margin-bottom: 28px; }
+    .service-card p { color: var(--muted); margin-bottom: 0; }
+    .service-card ul { color: #c7d9e2; padding-left: 18px; margin: 18px 0 0; line-height: 1.58; }
 
-/* Auto-fill Partners Grid */
-#partners-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:1rem;
-  width:100%;
-  max-width:90rem;
-  margin:0 auto;
-}
-#partners-grid a {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:56px;
-  border:1px solid var(--accent-yellow);
-  padding:.5rem 1rem;
-  border-radius:.5rem;
-  color:var(--accent-yellow);
-  transition:all .25s ease;
-  box-shadow:0 0 4px rgba(255,255,0,.3);
-}
-#partners-grid a:hover, #partners-grid a:focus-visible {
-  background: var(--accent-yellow);
-  color: #021527;
-  box-shadow:0 0 8px var(--accent-yellow),
-             0 0 16px var(--accent-yellow),
-             0 0 24px var(--accent-yellow);
-  transform:translateY(-2px);
-  outline: none;
-}
+    .audit-strip {
+      margin-top: 26px;
+      padding: 25px 28px;
+      border: 1px solid rgba(231,255,47,.28);
+      background: var(--accent-soft);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .audit-strip p { margin: 0; color: #d8e6ed; }
 
-/* Contact card */
-#contact .contact-card {
-  text-align:center;
-}
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .checks { display: grid; gap: 12px; }
+    .check {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .check-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 900;
+      border: 1px solid rgba(231,255,47,.30);
+    }
+    .check strong { display: block; margin-bottom: 4px; }
+    .check span { color: var(--muted); font-size: .94rem; line-height: 1.5; }
 
-/* Fixed Nav offset hero */
-.hero-offset {padding-top:9rem;} /* adjust if nav height changes */
+    .process {
+      padding: 30px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(3, 20, 32, .72);
+    }
+    .process-step { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .process-step:last-child { border-bottom: none; }
+    .process-step b { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; color: var(--accent); background: var(--accent-soft); }
+    .process-step p { margin: 3px 0 0; color: var(--muted); font-size: .94rem; }
 
-/* Hero text sizes */
-.hero-title{ font-size:clamp(2rem,5vw,4rem); font-weight:700 }
-.hero-sub{ color:#9ac0d8; font-size:1.2rem; max-width:760px; margin:1rem auto }
+    .sector-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .sector { text-align: center; padding: 18px 10px; border: 1px solid var(--line); border-radius: 13px; color: #d5e5ed; background: rgba(4,23,36,.62); font-weight: 700; }
 
-/* Nav backdrop */
-.navwrap{ background:rgba(7, 46, 89, 0.45); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 2px 8px rgba(0,0,0,.4);}
-nav img { height: 6rem; width:auto; }
+    /* EXPERIENCE */
+    .experience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .experience-card { padding: 22px; border-left: 2px solid var(--accent); background: rgba(255,255,255,.035); }
+    .experience-card h3 { font-size: 1.08rem; }
+    .experience-card p { color: var(--muted); margin-bottom: 0; font-size: .94rem; }
 
-nav, footer { color:#fff; }
-section { color:#fff; }
+    /* GALLERY */
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .gallery-grid button { padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: #06131d; aspect-ratio: 4/3; cursor: zoom-in; }
+    .gallery-grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+    .gallery-grid button:hover img { transform: scale(1.035); }
+    .gallery-actions { text-align: center; margin-top: 22px; }
 
-/* Lightbox animations */
-#lightbox.show #lightbox-content {
-  opacity: 1;
-  transform: scale(1);
-}
-#lightbox-content {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.3s ease-out;
-}
-</style>
+    /* CONTACT */
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 45px;
+      padding: 42px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(9,41,63,.86), rgba(2,16,26,.92));
+      box-shadow: var(--shadow);
+    }
+    .contact-details { display: grid; gap: 12px; margin-top: 24px; }
+    .contact-details a { color: var(--accent); font-weight: 800; text-decoration: none; }
+    .contact-box { padding: 24px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.10); }
+    .contact-box p { margin-top: 0; color: var(--muted); }
+    .contact-box ul { margin: 0; padding-left: 18px; line-height: 1.7; color: #d4e4ec; }
+
+    footer { position: relative; z-index: 2; padding: 34px 0 46px; color: #7fa0b1; text-align: center; font-size: .9rem; }
+
+    /* LIGHTBOX */
+    .lightbox { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 28px; background: rgba(0,0,0,.88); }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: min(1200px, 94vw); max-height: 90vh; border-radius: 12px; }
+    .lightbox-close { position: absolute; top: 18px; right: 22px; color: white; border: 1px solid rgba(255,255,255,.3); background: rgba(0,0,0,.4); border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+
+    @media (max-width: 980px) {
+      .hero-grid, .two-col, .contact-panel { grid-template-columns: 1fr; }
+      .hero-grid { gap: 35px; }
+      .hero-proof { max-width: 620px; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .experience-grid { grid-template-columns: repeat(2, 1fr); }
+      .sector-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .nav-links { position: absolute; top: 78px; left: 20px; right: 20px; display: none; flex-direction: column; align-items: stretch; padding: 12px; background: #03131f; border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+      .nav-links.open { display: flex; }
+      .menu-btn { display: inline-block; }
+    }
+
+    @media (max-width: 650px) {
+      .shell { width: min(calc(100% - 28px), var(--max)); }
+      .section { padding: 72px 0; }
+      .hero { min-height: auto; padding-top: 125px; }
+      .brand img { width: 54px; height: 44px; }
+      .brand-text { font-size: .97rem; }
+      .service-grid, .experience-grid, .sector-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .audit-strip { align-items: flex-start; flex-direction: column; }
+      .contact-panel { padding: 26px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .bubble { animation: none; display: none; }
+      * { transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-<div class="scrolling-bg"></div>
-<div class="bg-bubbles"><div id="bubbles"></div></div>
-<div class="embossed-logo" aria-hidden="true"></div>
+  <div id="bubbles" aria-hidden="true"></div>
 
-<!-- FIXED NAVBAR -->
-<nav class="fixed top-0 left-0 w-full z-50 navwrap flex items-center justify-between px-6 py-4" aria-label="Primary">
-  <div class="flex items-center space-x-3">
-    <img src="rov.png" alt="Seatec ROV Logo" class="h-24 w-auto" loading="lazy" width="192" height="96">
-    <span class="text-[#ffff00] font-heading text-3xl tracking-wide">Seatec Services Inc.</span>
-  </div>
-  <ul class="flex space-x-4">
-    <li><a href="#projects" class="nav-button">Projects</a></li>
-    <li><a href="#gallery" class="nav-button">Gallery</a></li>
-    <li><a href="#partners" class="nav-button">Partners</a></li>
-    <li><a href="#contact" class="nav-button">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero" class="relative z-10 hero-offset h-[90vh] flex flex-col items-center justify-center text-center px-4">
-  <h1 class="hero-title">Seatec Services Inc.</h1>
-  <p class="hero-sub">Precision at Depth. Innovation at Sea. Seatec Services Inc. brings over two decades of hands-on subsea expertise to the world’s most challenging marine environments. We deliver advanced subsea engineering, ROV/AUV operations, trenching and cable-installation support — from deepwater telecoms to shallow-water windfarm and pipeline projects. Drawing on extensive global experience with leading systems such as Schilling HD, Perry ST200/XLX, Sub Atlantic Comanche, Kongsberg Hugin and SMD trenchers, we offer complete mobilization, operational, and technical consultancy services. Our team’s track record spans the North Sea, Pacific, South China Sea, Brazil, Alaska, and beyond, providing safe, efficient and innovative solutions to telecom operators, energy majors, research institutions and government agencies alike.</p>
-  <a href="#projects" class="hero-button mt-6">Explore Projects →</a>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="relative z-10 py-24 px-6">
-  <h2 class="text-3xl font-heading text-[#ffff00] mb-4 text-center">Projects</h2>
-  <p class="text-blue-200 text-center max-w-3xl mx-auto mb-10">
-    A selection of our subsea engineering and ROV/AUV projects around the globe.
-  </p>
-  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8" data-aos="fade-up">
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Subsea Telecoms</div>
-  <div class="project-title">IT Telecom – RovJet 605</div>
-  <div class="project-text">
-    Canadian subsea telecom cable installation and maintenance using the RovJet 605 system. Scope included deep-water route survey, cable lay, post-lay burial, and emergency repair readiness. Seatec supplied offshore project engineering, pilot/technician teams, and 24/7 operations support from 2024 onwards.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Pipeline Trenching</div>
-  <div class="project-title">Pharos Offshore – SMD Q800 Trencher</div>
-  <div class="project-text">
-    Deployment of the SMD Q800 jet-trencher off Sicily for the burial of subsea pipelines. Our team handled mobilization, ROV integration, real-time trenching control, and post-installation survey ensuring specification compliance and minimal seabed impact.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Pre-lay Route Survey</div>
-  <div class="project-title">Argeo – Kongsberg Hugin Astral AUV</div>
-  <div class="project-text">
-    High-resolution pre-lay route surveys for offshore pipeline corridor in Brazil using autonomous underwater vehicles (AUVs). Delivered bathymetric, geophysical and environmental data to optimize cable and pipeline design, reducing installation risk and cost.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Research & Salvage</div>
-  <div class="project-title">Pelagic Research Services – Odyssius ROV</div>
-  <div class="project-text">
-    Provided deep-water ROV operations for archeological and salvage work in the Pacific and Atlantic oceans. Tasks included artifact recovery, wreck site mapping, biological sampling, and live video transmission for onshore research teams.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Shipwreck Recovery</div>
-  <div class="project-title">Deep Ocean Search – SS City of Cairo</div>
-  <div class="project-text">
-    Assisted in the deepwater recovery of precious metals from the WWII shipwreck “SS City of Cairo” at ~5,000 m depth. Managed heavy-lift ROV tooling, survey sensors, and safe recovery protocols under extreme conditions.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">ROV & Scientific Support</div>
-  <div class="project-title">Nautilus Live – Benthic Crawler “Wally”</div>
-  <div class="project-text">
-    Support for benthic crawler “Wally” and Nautilus ROV operations at deep-sea observatories. Integrated environmental sensors, managed fiber-optic umbilicals, and provided 24/7 subsea engineering during live broadcasts to the public.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Extreme Environments</div>
-  <div class="project-title">Hydrothermal Vents Exploration</div>
-  <div class="project-text">
-    Deep-sea exploration of hydrothermal vent systems using advanced ROVs and sampling equipment. Collected geochemical and biological samples at depths over 3,000 m, contributing to research on chemosynthetic ecosystems.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Offshore Oil & Gas</div>
-  <div class="project-title">Oceaneering – Petrobras Subsea Robotics Contract</div>
-  <div class="project-text">
-    Multi-year support contract supplying ROV pilots and subsea engineers for Petrobras operations. Provided intervention tooling, subsea metrology, and emergency response teams across multiple deepwater assets offshore Brazil.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Robotics & Autonomous Systems</div>
-  <div class="project-title">Nauticus Robotics & Advanced Ocean Systems – MSA</div>
-  <div class="project-text">
-    Collaboration on multi-sensor autonomous platforms integrating ROV and AUV capabilities. Our role included sensor fusion, subsea control software, and offshore testing to validate hybrid operations.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Hybrid Platforms</div>
-  <div class="project-title">Open Ocean & Nauticus Collaboration</div>
-  <div class="project-text">
-    Supporting development of hybrid ROV/AUV platforms for subsea inspection and monitoring. Focused on low-carbon operations, extended endurance, and advanced AI for anomaly detection.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Marine Archaeology</div>
-  <div class="project-title">Ancient Shipwreck – Adrasan, Turkey</div>
-  <div class="project-text">
-    Delicate ROV inspections and 3D photogrammetry of an ancient shipwreck off Adrasan, Turkey. Delivered HD imagery for artifact cataloguing and site preservation planning with local authorities and researchers.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">AUV/ROV Survey</div>
-  <div class="project-title">Pipeline Route Survey – North Sea</div>
-  <div class="project-text">
-    Combined AUV and ROV operations for route survey and environmental baseline assessment in the North Sea. Delivered integrated datasets for pipeline engineering and permitting compliance.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Shore End Operations</div>
-  <div class="project-title">Cable Landing Support – East Coast Canada</div>
-  <div class="project-text">
-    Managed shore-end cable landings including diver support, ROV trenching, and jointing operations in challenging tidal environments. Achieved on-time delivery with zero safety incidents.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Pipeline Installation</div>
-  <div class="project-title">Deep Trenching – Baltic Sea</div>
-  <div class="project-text">
-    Subsea trenching and burial support for a new interconnector pipeline. Designed and installed custom trenching tools to manage glacial till seabed conditions and meet specified burial depths.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Asset Removal</div>
-  <div class="project-title">ROV Decommissioning – Gulf of Mexico</div>
-  <div class="project-text">
-    Decommissioning of subsea structures, cutting and recovery of flowlines, and plugging of wells. Employed heavy-duty ROV tooling and debris management plans to ensure safe, environmentally compliant removal.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Shipwreck Salvage</div>
-  <div class="project-title">Salvage of WWII Vessel – Pacific</div>
-  <div class="project-text">
-    High-profile WWII wreck salvage operations in the Pacific. Precision navigation, 3D sonar mapping, and custom lift bags enabled recovery of sensitive artifacts from >2,500 m depth.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">AUV Survey</div>
-  <div class="project-title">Autonomous Environmental Survey – Norwegian Fjords</div>
-  <div class="project-text">
-    Long-endurance AUV environmental baseline surveys in Norwegian fjords. Delivered water-column chemistry profiles, seabed mapping, and biodiversity indexing to client scientists and regulators.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Mooring & FPSO</div>
-  <div class="project-title">Subsea Anchor Installation – West Africa</div>
-  <div class="project-text">
-    Engineered and executed installation of subsea anchors and mooring chains for FPSO operations offshore West Africa. Provided load testing, subsea inspection, and as-built documentation.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Latitude Operations</div>
-  <div class="project-title">Hybrid ROV/AUV Survey – Arctic</div>
-  <div class="project-text">
-    Hybrid ROV/AUV systems in Arctic waters for high-latitude pipeline inspection. Managed ice cover logistics, extended tether lengths, and cold-weather adaptations for vehicles and sensors.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Telecoms</div>
-  <div class="project-title">Shore-End Cable Landing – Mediterranean</div>
-  <div class="project-text">
-    Nearshore ROV support for multiple fiber optic cable landings. Plough operations, diver support, and environmental monitoring in shallow coastal zones with strict permitting windows.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Academic Partnerships</div>
-  <div class="project-title">Research Collaboration with University Labs</div>
-  <div class="project-text">
-    Collaboration with universities on subsea robotics and sensing. Hosted interns on offshore campaigns, supported joint funding bids, and shared curated datasets for peer-reviewed research.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Renewable Energy</div>
-  <div class="project-title">Offshore Wind Farm Cable Installation – UK</div>
-  <div class="project-text">
-    ROVs and trenching systems for inter-array and export cable installation at offshore wind projects in the North Sea. Focus on cable protection, fatigue mitigation, and burial verification to OEM specs.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">FPSO Inspection</div>
-  <div class="project-title">Inspection of Floating Production Units – Brazil</div>
-  <div class="project-text">
-    Routine and special-purpose inspections of FPSO subsea systems offshore Brazil. Delivered UT thickness readings, CP surveys, and high-resolution video for integrity management decisions.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Telecoms</div>
-  <div class="project-title">Emergency Cable Repair – Atlantic</div>
-  <div class="project-text">
-    Rapid emergency mobilization to repair critical fiber optic cables in the Atlantic. Achieved restoration under harsh winter conditions with tight weather windows and challenging sea states.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Oil & Gas</div>
-  <div class="project-title">Pipeline Maintenance – North Sea</div>
-  <div class="project-text">
-    IMR campaigns for subsea pipelines in the North Sea. Included valve operations, spoolpiece replacement, anode installation, and debris clearance to maintain system reliability.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">AUV Survey</div>
-  <div class="project-title">Environmental Baseline Survey – Gulf of Mexico</div>
-  <div class="project-text">
-    AUV-mounted sensors collected environmental baseline data across multiple lease blocks. Delivered 3D bathymetry, sediment chemistry, and habitat maps to support EIA submissions.
-  </div>
-</div>
-
-<div class="project-card" data-aos="fade-up">
-  <div class="project-cat">Shipwreck Archaeology</div>
-  <div class="project-title">Deepwater Wreck Identification – Caribbean</div>
-  <div class="project-text">
-    ROV-assisted wreck identification and artifact assessment in the Caribbean. Produced ultra-HD imagery and multibeam mosaics for academic and government partners.
-  </div>
-</div>
-
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery" class="relative z-10 py-24 px-6 bg-gradient-to-b from-transparent to-[#021527]">
-  <h2 class="text-3xl font-heading text-[#ffff00] mb-4 text-center">Gallery</h2>
-  <p class="text-blue-200 text-center max-w-3xl mx-auto mb-10">
-    Highlights from our offshore campaigns, subsea operations and project achievements.
-  </p>
-
-  <div id="gallery-grid">
-    <!-- Lightweight, lazy videos: sources set via data-src when in view -->
-   <!-- Videos -->
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(1).mp4"></video>
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(2).mp4"></video>
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(3).mp4"></video>
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(4).mp4"></video>
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(5).mp4"></video>
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(6).mp4"></video>
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(7).mp4"></video>
-<video class="gallery-thumb" preload="none" muted playsinline width="640" height="360" data-src="images/image%20(8).mp4"></video>
-
-<!-- Images -->
-<img src="images/image%20(1).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(2).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(3).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(4).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(5).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(6).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(7).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(8).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(19).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(20).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(21).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(22).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(23).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(24).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(25).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(26).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(27).JPG" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(28).JPG" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(29).JPG" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(34).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(35).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(36).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(37).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(38).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(41).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(42).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(50).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(51).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(52).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(53).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(54).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(55).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(56).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(57).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(58).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(59).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(60).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(61).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(62).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(63).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(64).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(65).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(66).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(67).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(68).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(69).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(70).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(71).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(72).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(73).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(74).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(75).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(76).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(77).jpg" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(3).png" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(1).png" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(1).avif" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(5).avif" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(6).avif" loading="lazy" width="1280" height="720" alt="">
-<img src="images/image%20(7).avif" loading="lazy" width="1280" height="720" alt="">
-
-  </div>
-
-  <p class="text-blue-300 text-center mt-16">Explore our trusted partners and clients below.</p>
-</section>
-
-<!-- PARTNERS -->
-<section id="partners" class="relative z-10 py-24 px-6 bg-gradient-to-b from-[#021527] to-[#010d1c]">
-  <h2 class="text-3xl font-heading text-[#ffff00] mb-8 text-center">Our Partners & Clients</h2>
-  <p class="text-blue-200 text-center max-w-3xl mx-auto mb-10">
-    We’ve collaborated with leading telecom, energy, government, and research organizations worldwide.
-  </p>
-
-  <div id="partners-grid" data-aos="fade-up">
-    <a href="https://www.bell.ca" target="_blank" class="nav-button" rel="noopener">Bell Canada</a>
-    <a href="https://www.telus.com" target="_blank" class="nav-button" rel="noopener">Telus</a>
-    <a href="https://www.verizon.com" target="_blank" class="nav-button" rel="noopener">Verizon</a>
-    <a href="https://www.eni.com" target="_blank" class="nav-button" rel="noopener">Eni</a>
-    <a href="https://www.oceanpact.com.br" target="_blank" class="nav-button" rel="noopener">OceanPact</a>
-    <a href="https://petrobras.com.br" target="_blank" class="nav-button" rel="noopener">Petrobras</a>
-    <a href="https://www.horizonmarineservices.com" target="_blank" class="nav-button" rel="noopener">Horizon Marine</a>
-    <a href="https://themetalscompany.com" target="_blank" class="nav-button" rel="noopener">Deep Green</a>
-    <a href="https://www.oceannetworks.ca" target="_blank" class="nav-button" rel="noopener">Ocean Network Canada</a>
-    <a href="https://www.canada.ca" target="_blank" class="nav-button" rel="noopener">Govt of Canada</a>
-    <a href="https://www.chevron.com" target="_blank" class="nav-button" rel="noopener">Chevron</a>
-    <a href="https://www.subcom.com" target="_blank" class="nav-button" rel="noopener">Subcom</a>
-    <a href="https://www.defense.gov" target="_blank" class="nav-button" rel="noopener">US Dept of Defense</a>
-    <a href="https://ctoffshore.dk" target="_blank" class="nav-button" rel="noopener">CT Offshore</a>
-    <a href="https://www.technipenergies.com" target="_blank" class="nav-button" rel="noopener">Technip</a>
-    <a href="https://www.tata.com" target="_blank" class="nav-button" rel="noopener">TATA</a>
-    <a href="https://group.vattenfall.com" target="_blank" class="nav-button" rel="noopener">Vattenfall</a>
-    <a href="https://www.odysseymarine.com" target="_blank" class="nav-button" rel="noopener">Odyssey Marine Exploration</a>
-    <a href="https://totalenergies.com" target="_blank" class="nav-button" rel="noopener">Total</a>
-    <a href="https://globalmarine.group" target="_blank" class="nav-button" rel="noopener">Global Marine</a>
-    <a href="https://www.hibernia.ca" target="_blank" class="nav-button" rel="noopener">Hibernia</a>
-    <a href="https://www.imca-int.com" target="_blank" class="nav-button" rel="noopener">IMCA</a>
-    <a href="https://www.shell.com" target="_blank" class="nav-button" rel="noopener">Shell</a>
-    <a href="https://www.bp.com" target="_blank" class="nav-button" rel="noopener">BP</a>
-    <a href="https://nautiluslive.org" target="_blank" class="nav-button" rel="noopener">Nautilus Live</a>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="relative z-10 py-28 px-6 bg-gradient-to-b from-[#010d1c] to-[#000000]">
-  <h2 class="text-3xl font-heading text-[#ffff00] mb-6 text-center">Contact Us</h2>
-  <p class="text-blue-200 mb-12 text-center max-w-2xl mx-auto">
-    We’re available to discuss your next subsea engineering project in more detail.
-    Please reach out via email or phone:
-  </p>
-  <div class="max-w-lg mx-auto p-10 bg-[#021527]/40 rounded-xl space-y-6 shadow-lg contact-card" data-aos="fade-up">
-    <div>
-      <strong class="block text-white mb-1">Email:</strong>
-      <a href="mailto:oli@seatecservices.ca" class="text-[#ffff00] underline hover:text-[#e6e600] text-lg">
-        oli@seatecservices.ca
+  <header class="nav-wrap">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="Seatec Services home">
+        <img src="rov.png" alt="Seatec Services ROV logo" width="132" height="104">
+        <div class="brand-text">SEATEC <span>SERVICES INC.</span></div>
       </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#readiness">Readiness Audits</a>
+        <a href="#experience">Experience</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact" class="nav-cta">Discuss a Project</a>
+      </nav>
     </div>
-    <div>
-      <strong class="block text-white mb-1">Phone:</strong>
-      <a href="tel:+12507321313" class="text-[#ffff00] underline hover:text-[#e6e600] text-lg">
-        +1 250 732 1313
-      </a>
-    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <div class="eyebrow">Subsea engineering support • Canada / Worldwide</div>
+          <h1>Subsea expertise, <strong>available before the vessel sails.</strong></h1>
+          <p class="lead">Seatec Services Inc. provides practical technical support for ROV, trenching, cable and subsea projects — from documentation and readiness reviews to remote troubleshooting, mobilization and commissioning support.</p>
+          <div class="hero-actions">
+            <a href="#services" class="button button-primary">View Services</a>
+            <a href="mailto:oli@seatecservices.ca?subject=Subsea%20technical%20support%20enquiry" class="button button-secondary">Email Seatec</a>
+          </div>
+        </div>
+
+        <aside class="hero-proof" aria-label="Seatec capabilities summary">
+          <img src="rov.png" alt="" aria-hidden="true" width="360" height="256">
+          <div class="stat"><strong>25+ years subsea experience</strong><span>ROV, cable, trenching, offshore operations and technical supervision.</span></div>
+          <div class="stat"><strong>Remote or project-based support</strong><span>Useful when you need senior technical input without adding a full offshore rotation.</span></div>
+          <div class="stat"><strong>Operationally focused</strong><span>Documentation and reviews built around what crews actually need offshore.</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">Core services</div>
+          <h2>Experienced technical input where projects commonly lose time.</h2>
+          <p class="lead">Seatec bridges the gap between engineering intent and offshore execution. Support can be delivered remotely, during project preparation, or on site for mobilization and commissioning.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-no">01 / TECHNICAL WRITING</div>
+            <h3>Technical Writing & Documentation</h3>
+            <p>Clear, usable subsea documentation written from an operational engineering perspective rather than as generic paperwork.</p>
+            <ul>
+              <li>Operations and equipment manuals</li>
+              <li>Mobilization / demobilization procedures</li>
+              <li>Commissioning and test procedures</li>
+              <li>Method statements, ITPs and checklists</li>
+              <li>Technical reports and project closeout packs</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-no">02 / REMOTE SUPPORT</div>
+            <h3>Remote Subsea Technical Support</h3>
+            <p>Senior technical support for offshore teams, project engineers and equipment owners when a problem needs structured diagnosis.</p>
+            <ul>
+              <li>Electrical, electronic and communications fault finding</li>
+              <li>Controls / SCADA troubleshooting</li>
+              <li>Review of logs, alarms, drawings and test results</li>
+              <li>Vendor and vessel technical coordination</li>
+              <li>Recovery plans for recurring equipment faults</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-no">03 / READINESS</div>
+            <h3>ROV & Subsea Project Readiness Audits</h3>
+            <p>An independent pre-mobilization review to identify gaps before they become vessel downtime, offshore modifications or schedule pressure.</p>
+            <ul>
+              <li>System configuration and interface review</li>
+              <li>Tooling, spares and critical consumables</li>
+              <li>Documentation and test status</li>
+              <li>Operational / maintenance readiness</li>
+              <li>Prioritized punch list and closeout actions</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-no">04 / MOBILIZATION</div>
+            <h3>Mobilization & Commissioning Support</h3>
+            <p>Practical support during the point where equipment, vessel systems, controls, power, communications and tooling all have to work together.</p>
+            <ul>
+              <li>Pre-mob planning and equipment checks</li>
+              <li>System integration and interface testing</li>
+              <li>SAT / commissioning support</li>
+              <li>Punch-list management</li>
+              <li>Operational handover documentation</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-no">05 / ENGINEERING SUPPORT</div>
+            <h3>ROV, Trencher & Cable Project Support</h3>
+            <p>Technical consultancy grounded in offshore execution across work-class ROVs, trenching systems, subsea telecoms and cable operations.</p>
+            <ul>
+              <li>ROV and trencher operational planning</li>
+              <li>Cable installation / burial support</li>
+              <li>Tooling and system capability review</li>
+              <li>Technical risk identification</li>
+              <li>Offshore execution support</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-no">06 / TROUBLESHOOTING</div>
+            <h3>Systems Integration & Troubleshooting</h3>
+            <p>Support for complex faults that cross electrical, hydraulic, control, communications and mechanical boundaries.</p>
+            <ul>
+              <li>Root-cause troubleshooting</li>
+              <li>Sensor and payload integration</li>
+              <li>Power / fibre / communications interfaces</li>
+              <li>Control-system and interlock review</li>
+              <li>Technical repair and modification planning</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="audit-strip">
+          <p><strong>Need a second set of eyes before mobilization?</strong> Send the equipment list, project scope and existing readiness documentation. Seatec can turn the review into a prioritized action list.</p>
+          <a href="#contact" class="button button-primary">Request a Review</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="readiness">
+      <div class="shell two-col">
+        <div>
+          <div class="eyebrow">Project readiness audits</div>
+          <h2>Find the weak points while they are still cheap to fix.</h2>
+          <p class="lead">A readiness audit is designed to answer a simple question: if this system had to mobilize and work offshore tomorrow, what would stop it?</p>
+          <div class="checks">
+            <div class="check"><div class="check-mark">✓</div><div><strong>Equipment readiness</strong><span>Configuration, maintenance status, open defects, critical spares, tooling and consumables.</span></div></div>
+            <div class="check"><div class="check-mark">✓</div><div><strong>Interfaces</strong><span>Power, hydraulics, data, fibre, deck equipment, vessel services, launch / recovery and project tooling.</span></div></div>
+            <div class="check"><div class="check-mark">✓</div><div><strong>Documentation</strong><span>Manuals, drawings, certificates, test records, procedures, checklists and operating limits.</span></div></div>
+            <div class="check"><div class="check-mark">✓</div><div><strong>Operational readiness</strong><span>Crew familiarity, maintenance plans, failure recovery, alarms, interlocks and contingency thinking.</span></div></div>
+          </div>
+        </div>
+
+        <aside class="process">
+          <div class="eyebrow">Typical workflow</div>
+          <div class="process-step"><b>1</b><div><strong>Review</strong><p>Project scope, system details, equipment lists, manuals, drawings, FAT/SAT records and open punch items.</p></div></div>
+          <div class="process-step"><b>2</b><div><strong>Challenge</strong><p>Check interfaces, assumptions, failure points, missing information and areas likely to generate offshore delay.</p></div></div>
+          <div class="process-step"><b>3</b><div><strong>Prioritize</strong><p>Separate critical blockers from recommended improvements so the project team knows what needs attention first.</p></div></div>
+          <div class="process-step"><b>4</b><div><strong>Close out</strong><p>Provide a concise readiness report / punch list suitable for project tracking and client review.</p></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-tight" aria-labelledby="sectors-heading">
+      <div class="shell">
+        <div class="eyebrow">Applicable sectors</div>
+        <h2 id="sectors-heading" style="font-size:1.75rem; max-width:760px;">Subsea support across multiple project types.</h2>
+        <div class="sector-grid">
+          <div class="sector">ROV Operations</div>
+          <div class="sector">Subsea Telecoms</div>
+          <div class="sector">Cable Burial</div>
+          <div class="sector">Trenching</div>
+          <div class="sector">Offshore Wind</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">Experience</div>
+          <h2>Built around real offshore systems and project delivery.</h2>
+          <p class="lead">Experience spans subsea telecoms, work-class ROV operations, trenching and burial, AUV systems, mobilization, commissioning, fault diagnosis and technical supervision in offshore environments worldwide.</p>
+        </div>
+
+        <div class="experience-grid">
+          <div class="experience-card"><h3>ROV & Robotics</h3><p>Work-class and inspection-class ROV systems, subsea tooling, controls, sensor integration and operational troubleshooting.</p></div>
+          <div class="experience-card"><h3>Trenching & Burial</h3><p>Jet trenchers, cable burial systems, shallow-water trenching and project support from mobilization through offshore execution.</p></div>
+          <div class="experience-card"><h3>Electrical & Controls</h3><p>HV distribution, embedded electronics, PCB-level diagnostics, fibre optics, digital communications, controls and SCADA systems.</p></div>
+          <div class="experience-card"><h3>Technical Delivery</h3><p>Commissioning, testing, readiness, technical reporting, procedures, offshore documentation and multidisciplinary team support.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">Field gallery</div>
+          <h2>Subsea systems in the real world.</h2>
+          <p class="lead">Gallery media loads in small batches to keep the site responsive. Existing image filenames are retained, so this page can drop into the current site folder structure.</p>
+        </div>
+        <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
+        <div class="gallery-actions"><button id="loadMore" class="button button-secondary" type="button">Load More Images</button></div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="shell">
+        <div class="contact-panel">
+          <div>
+            <div class="eyebrow">Discuss a project</div>
+            <h2>Need technical support without adding another full-time project role?</h2>
+            <p class="lead">Send a short description of the equipment, project stage and the problem you are trying to solve. Seatec can support a defined review, documentation package, troubleshooting task or broader readiness scope.</p>
+            <div class="contact-details">
+              <a href="mailto:oli@seatecservices.ca">oli@seatecservices.ca</a>
+              <a href="tel:+12507321313">+1 250 732 1313</a>
+            </div>
+          </div>
+          <aside class="contact-box">
+            <p><strong>Useful information to include:</strong></p>
+            <ul>
+              <li>Project / equipment scope</li>
+              <li>Target mobilization date</li>
+              <li>Current technical issue or concern</li>
+              <li>Relevant drawings, manuals or test results</li>
+              <li>Whether support is remote or on site</li>
+            </ul>
+            <a class="button button-primary" style="margin-top:20px" href="mailto:oli@seatecservices.ca?subject=Seatec%20project%20enquiry&body=Project%20or%20equipment%3A%0AProject%20stage%3A%0ATarget%20mobilization%20date%3A%0ATechnical%20support%20required%3A%0A">Start an Enquiry</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">© <span id="year"></span> Seatec Services Inc. • Subsea technical support, documentation and project readiness.</div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
+    <button class="lightbox-close" id="closeLightbox" type="button">Close</button>
+    <img id="lightboxImage" alt="Expanded subsea project image">
   </div>
-</section>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-50" role="dialog" aria-modal="true" aria-label="Media viewer">
-  <div id="lightbox-content" class="max-w-[90vw] max-h-[90vh]"></div>
-</div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<footer class="relative z-10 text-center text-blue-300 py-10">
-  © <span id="year"></span> Seatec Services Inc. • All rights reserved.
-</footer>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
 
-<script>
-// Init AOS when ready
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.AOS) AOS.init({ duration: 800, once: true });
-  document.getElementById('year').textContent = new Date().getFullYear();
-});
-
-// Bubble generator
-(function makeBubbles(){
-  const holder = document.getElementById('bubbles');
-  for(let i=0;i<40;i++){
-    const b = document.createElement('span');
-    b.className = 'bubble';
-    const size = 4 + Math.random()*10;
-    b.style.width = size + 'px';
-    b.style.height = size + 'px';
-    b.style.left = (Math.random()*100) + 'vw';
-    b.style.setProperty('--dur', (10 + Math.random()*14) + 's');
-    b.style.animationDelay = (Math.random()*-20) + 's';
-    holder.appendChild(b);
-  }
-})();
-
-// IntersectionObserver: lazy-attach <source> to videos only when visible
-const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries, obs) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const v = entry.target;
-      if (!v.querySelector('source')) {
-        const src = v.getAttribute('data-src');
-        if (src) {
-          const s = document.createElement('source');
-          s.src = src;
-          s.type = 'video/mp4';
-          v.appendChild(s);
-          // Load metadata but don't autoplay
-          v.load();
-        }
+    // Subtle bubbles — lightweight, decorative only.
+    const bubbles = document.getElementById('bubbles');
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (let i = 0; i < 20; i++) {
+        const bubble = document.createElement('span');
+        bubble.className = 'bubble';
+        const size = 4 + Math.random() * 10;
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.setProperty('--duration', `${14 + Math.random() * 18}s`);
+        bubble.style.setProperty('--drift', `${-30 + Math.random() * 60}px`);
+        bubble.style.animationDelay = `${-Math.random() * 25}s`;
+        bubbles.appendChild(bubble);
       }
-      obs.unobserve(v);
     }
-  });
-}, { rootMargin: '200px 0px' }) : null;
 
-document.querySelectorAll('#gallery-grid video[data-src]').forEach(v => {
-  if (io) io.observe(v);
-  else {
-    // Fallback without IO
-    const s = document.createElement('source');
-    s.src = v.getAttribute('data-src');
-    s.type = 'video/mp4';
-    v.appendChild(s);
-    v.load();
-  }
-});
+    // Existing site assets, inserted progressively so a large image folder does not slow initial load.
+    const galleryImages = [
+      'image%20(1).jpg','image%20(2).jpg','image%20(3).jpg','image%20(4).jpg',
+      'image%20(5).jpg','image%20(6).jpg','image%20(7).jpg','image%20(8).jpg',
+      'image%20(19).jpg','image%20(20).jpg','image%20(21).jpg','image%20(22).jpg',
+      'image%20(23).jpg','image%20(24).jpg','image%20(25).jpg','image%20(26).jpg',
+      'image%20(27).jpg','image%20(28).jpg','image%20(29).jpg',
+      'image%20(34).jpg','image%20(35).jpg','image%20(36).JPG','image%20(37).JPG',
+      'image%20(38).JPG','image%20(41).jpg','image%20(42).jpg'
+    ];    const galleryGrid = document.getElementById('galleryGrid');
+    const loadMore = document.getElementById('loadMore');
+    let galleryIndex = 0;
+    const batchSize = 12;
 
-// Enhanced Lightbox for images + videos
-const lightbox = document.getElementById('lightbox');
-const lightboxContent = document.getElementById('lightbox-content');
+    function addGalleryBatch() {
+      const end = Math.min(galleryIndex + batchSize, galleryImages.length);
+      for (; galleryIndex < end; galleryIndex++) {
+        const src = `images/${galleryImages[galleryIndex]}`;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.setAttribute('aria-label', `Open project gallery image ${galleryIndex + 1}`);
+        const img = document.createElement('img');
+        img.src = src;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.alt = `Seatec subsea project image ${galleryIndex + 1}`;
+        button.appendChild(img);
+        button.addEventListener('click', () => openLightbox(src));
+        galleryGrid.appendChild(button);
+      }
+      if (galleryIndex >= galleryImages.length) loadMore.hidden = true;
+    }
+    addGalleryBatch();
+    loadMore.addEventListener('click', addGalleryBatch);
 
-document.addEventListener('click', e => {
-  // If clicked image
-  const img = e.target.closest('#gallery-grid img');
-  if (img) {
-    const src = img.getAttribute('src');
-    lightboxContent.innerHTML = `<img src="${src}" class="max-h-[90vh] max-w-[90vw] rounded-lg" alt="">`;
-    openLightbox();
-    return;
-  }
-  // If clicked video
-  const vid = e.target.closest('#gallery-grid video');
-  if (vid) {
-    const sourceEl = vid.querySelector('source');
-    const videoSrc = sourceEl ? sourceEl.src : vid.getAttribute('data-src');
-    lightboxContent.innerHTML = `
-      <video controls autoplay class="max-h-[90vh] max-w-[90vw] rounded-lg">
-        <source src="${videoSrc}" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>`;
-    openLightbox();
-    return;
-  }
-  // If clicked outside content to close
-  if (e.target.id === 'lightbox') closeLightbox();
-});
-
-function openLightbox() {
-  lightbox.classList.remove('hidden');
-  requestAnimationFrame(() => lightbox.classList.add('show'));
-}
-function closeLightbox() {
-  lightbox.classList.remove('show');
-  setTimeout(() => {
-    lightbox.classList.add('hidden');
-    lightboxContent.innerHTML = '';
-  }, 300);
-}
-</script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeLightbox = document.getElementById('closeLightbox');
+    function openLightbox(src) {
+      lightboxImage.src = src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeLightbox.focus();
+    }
+    function closeViewer() {
+      lightbox.classList.remove('open');
+      lightboxImage.src = '';
+      document.body.style.overflow = '';
+    }
+    closeLightbox.addEventListener('click', closeViewer);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeViewer(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && lightbox.classList.contains('open')) closeViewer(); });
+  </script>
 </body>
 </html>
